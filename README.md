@@ -158,7 +158,6 @@ Output :
 SELECT m.nim, m.nama, m.jk, d.nama AS Dosen_PA
 FROM Mahasiswa m
 JOIN Dosen d ON m.kd_ds = d.kd_ds;
-
 ```
 
 #### Output :
@@ -206,11 +205,14 @@ JOIN Dosen d ON jm.kd_ds = d.kd_ds;
 ### JOIN tabel KRSMahasiswa, Mahasiswa, Matakuliah, dan Dosen
 
 ```
-SELECT Mahasiswa.nim, Mahasiswa.nama AS "nama", Dosen.nama AS "Dosen PA", Matakuliah.nama AS "Matakuliah", Matakuliah.sks, Dosen.nama AS "Dosen Pengampu"
-FROM KRSMahasiswa
-JOIN Mahasiswa ON KRSMahasiswa.nim = Mahasiswa.nim
-JOIN Matakuliah ON KRSMahasiswa.kd_mk = Matakuliah.kd_mk
-JOIN Dosen ON KRSMahasiswa.kd_ds = Dosen.kd_ds;
+select mahasiswa.nim, mahasiswa.nama, DosenPA. nama AS 'Dosen PA', Matakuliah.nama AS 'Mata Kuliah', Matakuliah.sks, DosenMK.nama AS 'Dosen Pengampu'
+FROM KRSMahasiswa 
+LEFT JOIN Mahasiswa ON mahasiswa.nim = KRSMahasiswa.nim
+LEFT JOIN Dosen AS DosenPA ON DosenPA.kd_ds = Mahasiswa.kd_ds
+LEFT JOIN Jadwalmengajar ON Jadwalmengajar.kd_mk = KRSMahasiswa.kd_mk
+LEFT JOIN Dosen AS DosenMK ON DosenMK.kd_ds = Jadwalmengajar.kd_ds
+LEFT JOIN Matakuliah ON Matakuliah.kd_mk Jadwalmengajar.kd_mk
+;
 ```
 
 #### Output :
